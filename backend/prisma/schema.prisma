@@ -1,0 +1,97 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum ProductStatus {
+  RECEIVED
+  IN_REPAIR
+  WAITING_PARTS
+  COMPLETED
+  DELIVERED
+  CANCELLED
+}
+
+enum TicketStatus {
+  OPEN
+  CLOSED
+  CANCELLED
+}
+
+model Customer {
+  id         Int      @id @default(autoincrement())
+  name       String
+  phone      String
+  address    String?
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  tickets Ticket[]
+}
+
+model Shelf {
+  id         Int      @id @default(autoincrement())
+  zone       String
+  row        Int
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  products Product[]
+
+  @@unique([zone, row])
+}
+
+model ProductType {
+  id         Int      @id @default(autoincrement())
+  type       String   @unique
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  products Product[]
+}
+
+model Ticket {
+  id                Int          @id @default(autoincrement())
+  customerId        Int
+  ticketStatus      TicketStatus @default(OPEN)
+  issue_description String?
+  total_price       Decimal?
+  closed_at         DateTime?
+  created_at        DateTime     @default(now())
+  updated_at        DateTime     @updatedAt
+
+  customer Customer  @relation(fields: [customerId], references: [id])
+  products Product[]
+}
+
+model Product {
+  id            Int           @id @default(autoincrement())
+  productTypeId Int
+  shelfId       Int
+  ticketId      Int
+  model         String
+  brand         String?
+  price         Decimal?
+  status        ProductStatus @default(RECEIVED)
+  description   String?
+  receivedDate  DateTime
+  deliveryDate  DateTime?
+  created_at    DateTime      @default(now())
+  updated_at    DateTime      @updatedAt
+
+  productType ProductType @relation(fields: [productTypeId], references: [id])
+  shelf       Shelf       @relation(fields: [shelfId], references: [id])
+  ticket      Ticket      @relation(fields: [ticketId], references: [id])
+}
