@@ -14,7 +14,7 @@ up:
 down:
 	@$(COMPOSE_COMMAND) down
 
-clean:
+clean: down
 	@$(COMPOSE_COMMAND) down -v --rmi all --remove-orphans
 
 rf: clean all

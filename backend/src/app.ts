@@ -1,9 +1,10 @@
 import express, { type Request, type Response } from 'express';
 import cors from 'cors';
-import customerRoutes from './modules/customer/routers.js';
-import ticketRouters from './modules/ticket/routers.js';
-import settingsRouters from './modules/settings/routers.js';
-import productRouters from './modules/product/routers.js';
+import customerRouter from './modules/customer/router.js';
+import ticketRouter from './modules/ticket/router.js';
+import settingsRouter from './modules/settings/router.js';
+import productRouter from './modules/product/router.js';
+import authRouter from './modules/auth/routers.js';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -11,10 +12,11 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-app.use('/api/customers', customerRoutes);
-app.use('/api/tickets', ticketRouters);
-app.use('/api/settings', settingsRouters);
-app.use('/api/products', productRouters);
+app.use('/api/customers', customerRouter);
+app.use('/api/tickets', ticketRouter);
+app.use('/api/settings', settingsRouter);
+app.use('/api/products', productRouter);
+app.use('/api/auth', authRouter);
 
 
 app.get('/', (req: Request, res: Response) => {
