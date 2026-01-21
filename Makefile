@@ -1,34 +1,40 @@
+COMPOSE_COMMAND = docker compose
+
 COMPOSE_FILE = ./docker-compose.yml
 
 
 
 
 
-all: 
-	@docker-compose up --build -d
+all: up
+
+up:
+	@$(COMPOSE_COMMAND) up --build -d
 
 down:
-	@docker-compose down
+	@$(COMPOSE_COMMAND) down
 
 clean:
-	@docker-compose down -v --rmi all --remove-orphans
+	@$(COMPOSE_COMMAND) down -v --rmi all --remove-orphans
 
-re: clean all
+rf: clean all
+
+re: down all
 
 
 list:
-	@docker-compose ps
+	@$(COMPOSE_COMMAND) ps
 
 
 shell-backend:
-	@docker-compose exec backend sh
+	@$(COMPOSE_COMMAND) exec backend sh
 
 
 
 logs:
-	@docker-compose logs -f
+	@$(COMPOSE_COMMAND) logs -f
 
 log-backend:
-	@docker-compose logs -f backend
+	@$(COMPOSE_COMMAND) logs -f backend
 
 .PHONY: all down clean re list shell-backend logs log-backend

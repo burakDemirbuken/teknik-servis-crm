@@ -1,16 +1,15 @@
-FROM node:24-alpine
+FROM node:24-slim
 
-RUN apk upgrade --no-cache && \
-    apk update --no-cache && \
-    apk add --no-cache openssl
+RUN apt-get update -y && apt-get install -y openssl && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /usr/src/app
 
 COPY package*.json ./
-COPY . .
+COPY prisma ./prisma
 
 RUN npm install
-RUN npx prisma generate
+
+COPY . .
 RUN npm run build
 
 CMD ["npm", "run", "dev"]
