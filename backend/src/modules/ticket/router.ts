@@ -5,6 +5,6 @@ const router = Router();
 
 router.post('/', createTicket);
 router.get('/', getTickets);
-router.patch('/:id/close', closeTicket);
+router.put('/:id/close', closeTicket);
 
 export default router;

@@ -4,7 +4,9 @@ import jwt from "jsonwebtoken";
 import prisma from "../../../prisma.js";
 import { z } from "zod";
 
-const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret_key";
+const JWT_SECRET = process.env.JWT_SECRET;
+if (!JWT_SECRET)
+	throw new Error("JWT_SECRET is not defined in environment variables");
 
 const registerSchema = z.object({
 	name: z.string().min(3).max(30, 'Username must be between 3 and 30 characters'),
@@ -13,7 +15,6 @@ const registerSchema = z.object({
 });
 
 export const register = async (req = request, res = response) => {
-
 	try
 	{
 		const { name, email, password } = registerSchema.parse(req.body);

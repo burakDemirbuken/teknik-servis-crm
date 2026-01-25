@@ -16,7 +16,15 @@ export const createCustomer = async (req: Request, res: Response) => {
 		const parseResult = await customerSchema.parseAsync(req.body);
 
 		const customer = await prisma.customer.create({
-			data: parseResult,
+			data: {
+				...parseResult,
+				created_by: req.user!.id // Auth middleware'den geliyor
+			},
+			include: {
+				creator: {
+					select: { id: true, name: true, email: true }
+				}
+			}
 		});
 		
 
@@ -38,7 +46,12 @@ export const getCustomers = async (req: Request, res: Response) => {
 	try
 	{
 		const customers = await prisma.customer.findMany({
-			orderBy: { created_at: 'desc' }
+			orderBy: { created_at: 'desc' },
+			include: {
+				creator: {
+					select: { id: true, name: true, email: true }
+				}
+			}
 		});
 		res.status(200).json(customers);
 	}
@@ -46,5 +59,47 @@ export const getCustomers = async (req: Request, res: Response) => {
 	{
 		console.error(error);
 		res.status(500).json({ error: 'Error occurred while fetching customers.' });
+	}
+};
+
+export const updateCustomer = async (req: Request, res: Response) => {
+	try
+	{
+		const { id } = req.params;
+		
+		if (!id) {
+			return res.status(400).json({ error: 'Customer ID is required' });
+		}
+
+		const parseResult = customerSchema.partial().parse(req.body);
+		const cleanData = cleanUndefinedFields(parseResult);
+
+		const customer = await prisma.customer.update({
+			where: { id: Number(id) },
+			data: {
+				...cleanData,
+				updated_by: req.user!.id
+			},
+			include: {
+				creator: { select: { id: true, name: true, email: true } },
+				updater: { select: { id: true, name: true, email: true } }
+			}
+		});
+
+		res.status(200).json(customer);
+	}
+	catch (error)
+	{
+		if (error instanceof z.ZodError) {
+			const errors = error.issues.map((err) => err.message);
+			return res.status(400).json({ errors });
+		}
+
+		if ((error as any).code === 'P2025') {
+			return res.status(404).json({ error: 'Customer not found' });
+		}
+
+		console.error(error);
+		res.status(500).json({ error: 'Error occurred while updating customer.' });
 	}
 };

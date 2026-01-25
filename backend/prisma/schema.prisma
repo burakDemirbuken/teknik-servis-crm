@@ -38,6 +38,13 @@ model User {
   role       String   @default("user")
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+
+  // Reverse relations for audit trail
+  created_customers Customer[] @relation("CustomerCreator")
+  updated_customers Customer[] @relation("CustomerUpdater")
+  created_tickets   Ticket[]   @relation("TicketCreator")
+  updated_tickets   Ticket[]   @relation("TicketUpdater")
+  closed_tickets    Ticket[]   @relation("TicketCloser")
 }
 
 model Customer {
@@ -49,6 +56,13 @@ model Customer {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
+  // Audit trail fields
+  created_by Int     @default(1) // Default to admin user (id: 1)
+  updated_by Int?
+
+  // Relations
+  creator User  @relation("CustomerCreator", fields: [created_by], references: [id])
+  updater User? @relation("CustomerUpdater", fields: [updated_by], references: [id])
   tickets Ticket[]
 }
 
@@ -83,6 +97,15 @@ model Ticket {
   created_at        DateTime     @default(now())
   updated_at        DateTime     @updatedAt
 
+  // Audit trail fields
+  created_by Int     @default(1) // Default to admin user (id: 1)
+  updated_by Int?
+  closed_by  Int?    // Who closed the ticket
+
+  // Relations
+  creator  User      @relation("TicketCreator", fields: [created_by], references: [id])
+  updater  User?     @relation("TicketUpdater", fields: [updated_by], references: [id])
+  closer   User?     @relation("TicketCloser", fields: [closed_by], references: [id])
   customer Customer  @relation(fields: [customerId], references: [id])
   products Product[]
 }

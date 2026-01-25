@@ -25,12 +25,22 @@ export const createTicket = async (req: Request, res: Response) => {
 	{
 		const validateData = await ticketSchema.parseAsync(req.body);
 
+		// Check if customer exists before creating ticket
+		const customerExists = await prisma.customer.findUnique({
+			where: { id: Number(validateData.customerId) }
+		});
+
+		if (!customerExists) {
+			return res.status(400).json({ error: 'Customer not found' });
+		}
+
 		const ticket = await prisma.ticket.create({
 			data:
 			{
 				customerId: Number(validateData.customerId),
 				issue_description: validateData.issue_description,
 				total_price: validateData.total_price,
+				created_by: req.user!.id, // Kim oluşturdu
 				products: {
 					create: validateData.products.map((product: any) => ({
 						productTypeId: Number(product.productTypeId),
@@ -59,6 +69,21 @@ export const createTicket = async (req: Request, res: Response) => {
 			const errors = error.issues.map((err) => err.message);
 			return res.status(400).json({ errors });
 		}
+
+		// Prisma foreign key constraint error
+		if ((error as any).code === 'P2003') {
+			const meta = (error as any).meta;
+			if (meta && meta.field_name === 'Ticket_customerId_fkey (index)') {
+				return res.status(400).json({ error: 'Customer not found or invalid customer ID' });
+			}
+			return res.status(400).json({ error: 'Invalid reference in data' });
+		}
+
+		// Prisma record not found error
+		if ((error as any).code === 'P2025') {
+			return res.status(404).json({ error: 'Referenced record not found' });
+		}
+
 		console.error(error);
 		res.status(500).json({ error: 'Error occurred while creating ticket.' });
 	}

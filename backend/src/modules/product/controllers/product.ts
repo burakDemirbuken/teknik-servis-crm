@@ -3,6 +3,25 @@ import { z } from 'zod';
 import prisma from '../../../prisma.js';
 import cleanUndefinedFields from '../../utils/cleanUndefinedFields.js';
 
+export const getProducts = async (req: Request, res: Response) => {
+	try {
+		const products = await prisma.product.findMany({
+			orderBy: { receivedDate: 'desc' },
+			include: {
+				productType: true,
+				shelf: true,
+				ticket: {
+					include: { customer: true }
+				}
+			}
+		});
+		res.status(200).json(products);
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({ error: 'Error occurred while fetching products.' });
+	}
+};
+
 const productStatusEnum = z.enum([
     'RECEIVED',
     'IN_REPAIR',
