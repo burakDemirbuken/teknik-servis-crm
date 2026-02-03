@@ -63,6 +63,7 @@ const loginSchema = z.object({
 export const login = async (req = request, res = response) => {
 	try
 	{
+		console.log("Login attempt with data:", req.body);
 		const { email, password } = loginSchema.parse(req.body);
 
 		const user = await prisma.user.findUnique({
