@@ -233,3 +233,5 @@ docs/build/
 
 # Storybook build outputs
 storybook-static
+
+whatsapp-session/

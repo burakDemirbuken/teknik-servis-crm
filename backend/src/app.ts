@@ -7,19 +7,18 @@ import productRouter from './modules/product/router.js';
 import authRouter from './modules/auth/routers.js';
 import { authMiddleware } from './middleware/authMiddleware.js';
 import { requestLogger, errorLogger } from './middleware/logger.js';
+import whatsappRouter from './modules/whatsapp/router.js';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(cors());
 
-// JSON body parser with error handling
 app.use(express.json({ 
   limit: '1mb',
   strict: true 
 }));
 
-// Handle JSON parsing errors
 app.use((err: any, req: Request, res: Response, next: any) => {
   if (err instanceof SyntaxError && 'body' in err) {
     console.error('JSON Parse Error:', {
@@ -30,7 +29,6 @@ app.use((err: any, req: Request, res: Response, next: any) => {
       contentType: req.headers['content-type']
     });
     
-    // Send response immediately for JSON parse errors
     return res.status(400).json({ 
       error: 'Invalid JSON format',
       message: 'Request body contains malformed JSON'
@@ -39,16 +37,15 @@ app.use((err: any, req: Request, res: Response, next: any) => {
   next(err);
 });
 
-app.use(requestLogger); // Log all requests
+app.use(requestLogger);
 
-// Public routes (no auth required)
 app.use('/api/auth', authRouter);
 
-// Protected routes (auth required)
 app.use('/api/customers', authMiddleware, customerRouter);
 app.use('/api/tickets', authMiddleware, ticketRouter);
 app.use('/api/settings', authMiddleware, settingsRouter);
 app.use('/api/products', authMiddleware, productRouter);
+app.use('/api/whatsapp', authMiddleware, whatsappRouter);
 
 
 app.get('/', (req: Request, res: Response) => {
@@ -98,18 +95,14 @@ async function MockDataCreate()
 	{
 		console.error('Error creating mock data:', error);	
 	}
-
-
 }
 
 app.get('/health', (req: Request, res: Response) => {
   res.json({ status: 'OK' });
 });
 
-// Global error handler
 app.use(errorLogger);
 
-// 404 handler for undefined routes
 app.use((req: Request, res: Response) => {
   res.status(404).json({ 
     error: 'Route not found',

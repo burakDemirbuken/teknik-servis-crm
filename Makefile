@@ -56,5 +56,29 @@ db-fresh:
 	@$(COMPOSE_COMMAND) down -v
 	@$(COMPOSE_COMMAND) up -d db
 
-.PHONY: all down clean re list shell-backend logs log-backend studio studio-stop studio-logs db-reset db-reset-with-seed db-fresh
+## up: Start containers
+## down: Stop containers
+## clean: Clean everything (volumes + images)
+## rf: Full reset (clean + up)
+## re: Restart (down + up)
+## list: List running containers
+## shell-backend: Enter backend container
+## logs: Show all logs
+## log-backend: Show backend logs only
+## studio: Start Prisma Studio (background)
+## studio-stop: Stop Prisma Studio
+## studio-logs: Show Prisma Studio logs
+## db-reset: Reset database (without seed)
+## db-reset-with-seed: Reset database (with seed)
+## db-fresh: Drop database and recreate
+## help: Show this help message
+help:
+	@echo "Available Commands:"
+	@echo ""
+	@grep -E '^## ' $(MAKEFILE_LIST) | \
+		sed 's/^## //' | \
+		awk 'BEGIN {FS = ":"}; {printf "  \033[36m%-20s\033[0m %s\n", $$1, $$2}'
+
+
+.PHONY: all down clean re list shell-backend logs log-backend studio studio-stop studio-logs db-reset db-reset-with-seed db-fresh help
 
