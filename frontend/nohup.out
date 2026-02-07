@@ -1,0 +1,424 @@
+
+  VITE v7.3.1  ready in 91 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: http://192.168.1.107:5173/
+  ➜  Network: http://172.18.0.1:5173/
+12:52:57 AM [vite] (client) hmr update /src/contexts/AuthContext.tsx, /src/index.css
+12:52:57 AM [vite] (client) hmr update /src/pages/LoginPage.tsx, /src/index.css
+12:52:57 AM [vite] (client) hmr update /src/components/Layout.tsx, /src/index.css
+12:52:57 AM [vite] (client) hmr update /src/pages/DashboardPage.tsx, /src/index.css
+12:52:57 AM [vite] (client) hmr update /src/pages/CustomersPage.tsx, /src/index.css
+12:52:57 AM [vite] (client) hmr update /src/pages/TicketsPage.tsx, /src/index.css
+12:52:57 AM [vite] (client) hmr update /src/pages/SettingsPage.tsx, /src/index.css
+12:52:57 AM [vite] (client) hmr update /src/index.css
+12:52:57 AM [vite] (client) hmr update /src/index.css
+12:52:57 AM [vite] (client) hmr update /src/App.tsx, /src/index.css
+12:52:57 AM [vite] (client) hmr update /src/index.css
+12:52:57 AM [vite] (client) page reload index.html
+12:52:57 AM [vite] vite.config.js changed, restarting server...
+12:52:57 AM [vite] changed tsconfig file detected: /home/ironbender/Project/teknik-servis-crm/frontend/tsconfig.json - Clearing cache and forcing full-reload to ensure TypeScript is compiled with updated config values.
+12:52:57 AM [vite] (client) page reload src/main.tsx
+12:52:57 AM [vite] (client) hmr update /src/index.css, /src/contexts/AuthContext.tsx, /src/pages/DashboardPage.tsx, /src/pages/CustomersPage.tsx, /src/pages/SettingsPage.tsx, /src/pages/TicketsPage.tsx
+12:52:57 AM [vite] server restarted.
+12:57:04 AM [vite] (client) hmr update /src/index.css, /src/contexts/AuthContext.tsx, /src/pages/DashboardPage.tsx, /src/pages/CustomersPage.tsx, /src/pages/TicketsPage.tsx, /src/pages/SettingsPage.tsx
+12:57:04 AM [vite] (client) hmr update /src/index.css, /src/App.tsx
+12:57:04 AM [vite] (client) hmr update /src/components/Layout.tsx, /src/index.css
+12:57:04 AM [vite] (client) hmr invalidate /src/contexts/AuthContext.tsx Could not Fast Refresh ("useAuth" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+12:57:04 AM [vite] (client) hmr update /src/components/Layout.tsx, /src/App.tsx, /src/pages/LoginPage.tsx
+12:57:04 AM [vite] (client) ✨ new dependencies optimized: recharts
+12:57:04 AM [vite] (client) ✨ optimized dependencies changed. reloading
+12:59:47 AM [vite] (client) hmr update /src/components/Layout.tsx, /src/index.css
+12:59:47 AM [vite] (client) hmr update /src/index.css, /src/App.tsx
+12:59:47 AM [vite] (client) hmr update /src/index.css, /src/contexts/AuthContext.tsx, /src/pages/DashboardPage.tsx, /src/pages/CustomersPage.tsx, /src/pages/TicketsPage.tsx, /src/pages/SettingsPage.tsx, /src/pages/ReportsPage.tsx
+12:59:47 AM [vite] (client) hmr update /src/index.css, /src/pages/ReportsPage.tsx
+1:04:17 AM [vite] (client) hmr update /src/index.css, /src/pages/SettingsPage.tsx
+1:04:28 AM [vite] (client) hmr update /src/index.css, /src/pages/SettingsPage.tsx
+1:04:43 AM [vite] (client) hmr update /src/index.css, /src/pages/SettingsPage.tsx
+1:04:44 AM [vite] (client) ✨ new dependencies optimized: react-qr-code
+1:04:44 AM [vite] (client) ✨ optimized dependencies changed. reloading
+1:13:58 AM [vite] (client) hmr update /src/index.css, /src/contexts/AuthContext.tsx, /src/pages/DashboardPage.tsx, /src/pages/CustomersPage.tsx, /src/pages/TicketsPage.tsx, /src/pages/SettingsPage.tsx, /src/pages/ReportsPage.tsx
+1:13:58 AM [vite] (client) hmr invalidate /src/contexts/AuthContext.tsx Could not Fast Refresh ("useAuth" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+1:13:58 AM [vite] (client) hmr update /src/components/Layout.tsx, /src/App.tsx, /src/pages/LoginPage.tsx
+1:14:22 AM [vite] (client) hmr update /src/index.css, /src/pages/TicketsPage.tsx
+1:14:43 AM [vite] (client) hmr update /src/index.css, /src/pages/TicketsPage.tsx
+1:14:57 AM [vite] (client) hmr update /src/index.css, /src/pages/TicketsPage.tsx
+1:15:31 AM [vite] (client) hmr update /src/index.css, /src/pages/TicketsPage.tsx
+1:15:31 AM [vite] Internal server error: Transform failed with 1 error:
+/home/ironbender/Project/teknik-servis-crm/frontend/src/pages/TicketsPage.tsx:365:15: ERROR: The character "}" is not valid inside a JSX element
+  Plugin: vite:esbuild
+  File: /home/ironbender/Project/teknik-servis-crm/frontend/src/pages/TicketsPage.tsx:365:16
+  
+  The character "}" is not valid inside a JSX element
+  363 |  
+  364 |                <p className="text-gray-500">Ürün bulunmuyor</p>
+  365 |                }}
+      |                 ^
+  366 |              </div>
+  367 |            </div>
+  
+      at failureErrorWithLog (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/esbuild/lib/main.js:1467:15)
+      at /home/ironbender/Project/teknik-servis-crm/frontend/node_modules/esbuild/lib/main.js:736:50
+      at responseCallbacks.<computed> (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/esbuild/lib/main.js:603:9)
+      at handleIncomingPacket (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/esbuild/lib/main.js:658:12)
+      at Socket.readFromStdout (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/esbuild/lib/main.js:581:7)
+      at Socket.emit (node:events:508:28)
+      at addChunk (node:internal/streams/readable:559:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+      at Readable.push (node:internal/streams/readable:390:5)
+      at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)
+1:15:31 AM [vite] Internal server error: Transform failed with 1 error:
+/home/ironbender/Project/teknik-servis-crm/frontend/src/pages/TicketsPage.tsx:365:15: ERROR: The character "}" is not valid inside a JSX element
+  Plugin: vite:esbuild
+  File: /home/ironbender/Project/teknik-servis-crm/frontend/src/pages/TicketsPage.tsx:365:16
+  
+  The character "}" is not valid inside a JSX element
+  363 |  
+  364 |                <p className="text-gray-500">Ürün bulunmuyor</p>
+  365 |                }}
+      |                 ^
+  366 |              </div>
+  367 |            </div>
+  
+      at failureErrorWithLog (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/esbuild/lib/main.js:1467:15)
+      at /home/ironbender/Project/teknik-servis-crm/frontend/node_modules/esbuild/lib/main.js:736:50
+      at responseCallbacks.<computed> (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/esbuild/lib/main.js:603:9)
+      at handleIncomingPacket (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/esbuild/lib/main.js:658:12)
+      at Socket.readFromStdout (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/esbuild/lib/main.js:581:7)
+      at Socket.emit (node:events:508:28)
+      at addChunk (node:internal/streams/readable:559:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+      at Readable.push (node:internal/streams/readable:390:5)
+      at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)
+1:15:47 AM [vite] (client) hmr update /src/index.css, /src/pages/TicketsPage.tsx
+1:15:47 AM [vite] Internal server error: Transform failed with 1 error:
+/home/ironbender/Project/teknik-servis-crm/frontend/src/pages/TicketsPage.tsx:365:15: ERROR: The character "}" is not valid inside a JSX element
+  Plugin: vite:esbuild
+  File: /home/ironbender/Project/teknik-servis-crm/frontend/src/pages/TicketsPage.tsx:365:16
+  
+  The character "}" is not valid inside a JSX element
+  363 |  
+  364 |                <p className="text-gray-500">Ürün bulunmuyor</p>
+  365 |                }}
+      |                 ^
+  366 |              </div>
+  367 |            </div>
+  
+      at failureErrorWithLog (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/esbuild/lib/main.js:1467:15)
+      at /home/ironbender/Project/teknik-servis-crm/frontend/node_modules/esbuild/lib/main.js:736:50
+      at responseCallbacks.<computed> (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/esbuild/lib/main.js:603:9)
+      at handleIncomingPacket (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/esbuild/lib/main.js:658:12)
+      at Socket.readFromStdout (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/esbuild/lib/main.js:581:7)
+      at Socket.emit (node:events:508:28)
+      at addChunk (node:internal/streams/readable:559:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+      at Readable.push (node:internal/streams/readable:390:5)
+      at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)
+1:15:47 AM [vite] Internal server error: Transform failed with 1 error:
+/home/ironbender/Project/teknik-servis-crm/frontend/src/pages/TicketsPage.tsx:365:15: ERROR: The character "}" is not valid inside a JSX element
+  Plugin: vite:esbuild
+  File: /home/ironbender/Project/teknik-servis-crm/frontend/src/pages/TicketsPage.tsx:365:16
+  
+  The character "}" is not valid inside a JSX element
+  363 |  
+  364 |                <p className="text-gray-500">Ürün bulunmuyor</p>
+  365 |                }}
+      |                 ^
+  366 |              </div>
+  367 |            </div>
+  
+      at failureErrorWithLog (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/esbuild/lib/main.js:1467:15)
+      at /home/ironbender/Project/teknik-servis-crm/frontend/node_modules/esbuild/lib/main.js:736:50
+      at responseCallbacks.<computed> (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/esbuild/lib/main.js:603:9)
+      at handleIncomingPacket (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/esbuild/lib/main.js:658:12)
+      at Socket.readFromStdout (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/esbuild/lib/main.js:581:7)
+      at Socket.emit (node:events:508:28)
+      at addChunk (node:internal/streams/readable:559:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+      at Readable.push (node:internal/streams/readable:390:5)
+      at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)
+1:16:22 AM [vite] (client) hmr update /src/index.css, /src/pages/TicketsPage.tsx
+1:16:22 AM [vite] Internal server error: Transform failed with 1 error:
+/home/ironbender/Project/teknik-servis-crm/frontend/src/pages/TicketsPage.tsx:365:15: ERROR: The character "}" is not valid inside a JSX element
+  Plugin: vite:esbuild
+  File: /home/ironbender/Project/teknik-servis-crm/frontend/src/pages/TicketsPage.tsx:365:16
+  
+  The character "}" is not valid inside a JSX element
+  363 |  
+  364 |                <p className="text-gray-500">Ürün bulunmuyor</p>
+  365 |                }}
+      |                 ^
+  366 |              </div>
+  367 |            </div>
+  
+      at failureErrorWithLog (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/esbuild/lib/main.js:1467:15)
+      at /home/ironbender/Project/teknik-servis-crm/frontend/node_modules/esbuild/lib/main.js:736:50
+      at responseCallbacks.<computed> (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/esbuild/lib/main.js:603:9)
+      at handleIncomingPacket (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/esbuild/lib/main.js:658:12)
+      at Socket.readFromStdout (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/esbuild/lib/main.js:581:7)
+      at Socket.emit (node:events:508:28)
+      at addChunk (node:internal/streams/readable:559:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+      at Readable.push (node:internal/streams/readable:390:5)
+      at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)
+1:16:22 AM [vite] Internal server error: Transform failed with 1 error:
+/home/ironbender/Project/teknik-servis-crm/frontend/src/pages/TicketsPage.tsx:365:15: ERROR: The character "}" is not valid inside a JSX element
+  Plugin: vite:esbuild
+  File: /home/ironbender/Project/teknik-servis-crm/frontend/src/pages/TicketsPage.tsx:365:16
+  
+  The character "}" is not valid inside a JSX element
+  363 |  
+  364 |                <p className="text-gray-500">Ürün bulunmuyor</p>
+  365 |                }}
+      |                 ^
+  366 |              </div>
+  367 |            </div>
+  
+      at failureErrorWithLog (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/esbuild/lib/main.js:1467:15)
+      at /home/ironbender/Project/teknik-servis-crm/frontend/node_modules/esbuild/lib/main.js:736:50
+      at responseCallbacks.<computed> (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/esbuild/lib/main.js:603:9)
+      at handleIncomingPacket (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/esbuild/lib/main.js:658:12)
+      at Socket.readFromStdout (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/esbuild/lib/main.js:581:7)
+      at Socket.emit (node:events:508:28)
+      at addChunk (node:internal/streams/readable:559:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+      at Readable.push (node:internal/streams/readable:390:5)
+      at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)
+1:16:39 AM [vite] (client) hmr update /src/index.css, /src/pages/TicketsPage.tsx
+1:16:39 AM [vite] (client) ✨ new dependencies optimized: react-barcode
+1:16:39 AM [vite] (client) ✨ optimized dependencies changed. reloading
+1:33:07 AM [vite] (client) hmr update /src/index.css, /src/pages/TicketsPage.tsx
+1:33:19 AM [vite] (client) hmr update /src/index.css, /src/pages/TicketsPage.tsx
+1:33:35 AM [vite] (client) hmr update /src/index.css, /src/pages/TicketsPage.tsx
+1:33:42 AM [vite] (client) hmr update /src/index.css, /src/pages/TicketsPage.tsx
+1:33:53 AM [vite] (client) hmr update /src/index.css, /src/pages/TicketsPage.tsx
+1:34:01 AM [vite] (client) hmr update /src/index.css, /src/pages/TicketsPage.tsx
+1:34:30 AM [vite] (client) hmr update /src/index.css, /src/pages/TicketsPage.tsx
+1:34:37 AM [vite] (client) hmr update /src/index.css, /src/pages/TicketsPage.tsx
+1:34:45 AM [vite] (client) hmr update /src/index.css, /src/pages/TicketsPage.tsx
+1:35:15 AM [vite] (client) hmr update /src/index.css, /src/pages/TicketsPage.tsx
+1:47:01 AM [vite] (client) hmr update /src/index.css, /src/contexts/AuthContext.tsx, /src/pages/DashboardPage.tsx, /src/pages/CustomersPage.tsx, /src/pages/TicketsPage.tsx, /src/pages/SettingsPage.tsx, /src/pages/ReportsPage.tsx
+1:47:01 AM [vite] (client) hmr invalidate /src/contexts/AuthContext.tsx Could not Fast Refresh ("useAuth" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+1:47:01 AM [vite] (client) hmr update /src/components/Layout.tsx, /src/App.tsx, /src/pages/LoginPage.tsx
+1:47:07 AM [vite] (client) hmr update /src/index.css, /src/contexts/AuthContext.tsx, /src/pages/DashboardPage.tsx, /src/pages/CustomersPage.tsx, /src/pages/TicketsPage.tsx, /src/pages/SettingsPage.tsx, /src/pages/ReportsPage.tsx
+1:47:07 AM [vite] (client) hmr invalidate /src/contexts/AuthContext.tsx Could not Fast Refresh ("useAuth" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+1:47:07 AM [vite] (client) hmr update /src/components/Layout.tsx, /src/App.tsx, /src/pages/LoginPage.tsx
+1:47:23 AM [vite] (client) hmr update /src/index.css, /src/pages/SettingsPage.tsx
+1:47:45 AM [vite] (client) hmr update /src/index.css, /src/pages/SettingsPage.tsx
+1:48:30 AM [vite] (client) hmr update /src/index.css, /src/pages/SettingsPage.tsx
+1:48:39 AM [vite] (client) hmr update /src/index.css, /src/pages/SettingsPage.tsx
+1:48:51 AM [vite] (client) hmr update /src/index.css, /src/pages/TicketsPage.tsx
+1:48:59 AM [vite] (client) hmr update /src/index.css, /src/pages/TicketsPage.tsx
+1:49:14 AM [vite] (client) hmr update /src/index.css, /src/pages/TicketsPage.tsx
+1:49:30 AM [vite] (client) hmr update /src/index.css, /src/pages/TicketsPage.tsx
+1:49:36 AM [vite] (client) hmr update /src/index.css, /src/pages/CustomersPage.tsx
+1:49:43 AM [vite] (client) hmr update /src/index.css, /src/pages/ReportsPage.tsx
+1:49:54 AM [vite] (client) hmr update /src/index.css, /src/pages/TicketsPage.tsx
+1:50:01 AM [vite] (client) hmr update /src/index.css, /src/pages/ReportsPage.tsx
+1:50:07 AM [vite] (client) hmr update /src/index.css, /src/pages/ReportsPage.tsx
+1:50:25 AM [vite] (client) hmr update /src/index.css, /src/pages/ReportsPage.tsx
+1:50:25 AM [vite] Internal server error: /home/ironbender/Project/teknik-servis-crm/frontend/src/pages/ReportsPage.tsx: Unexpected token, expected "," (398:6)
+
+  396 |       </div>
+  397 |
+> 398 |       {/* Ticket Status Cards */}
+      |       ^
+  399 |       <div className="grid grid-cols-3 gap-4">
+  400 |         <div className="bg-gray-800/50 rounded-2xl border border-gray-700 p-5 flex items-center gap-4">
+  401 |           <div className="w-12 h-12 bg-yellow-500/20 rounded-xl flex items-center justify-center">
+  Plugin: vite:react-babel
+  File: /home/ironbender/Project/teknik-servis-crm/frontend/src/pages/ReportsPage.tsx:398:6
+  396 |        </div>
+  397 |  
+  398 |        {/* Ticket Status Cards */}
+      |        ^
+  399 |        <div className="grid grid-cols-3 gap-4">
+  400 |          <div className="bg-gray-800/50 rounded-2xl border border-gray-700 p-5 flex items-center gap-4">
+      at constructor (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:365:19)
+      at TypeScriptParserMixin.raise (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:6599:19)
+      at TypeScriptParserMixin.unexpected (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:6619:16)
+      at TypeScriptParserMixin.expect (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:6899:12)
+      at TypeScriptParserMixin.parseParenAndDistinguishExpression (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:11661:14)
+      at TypeScriptParserMixin.parseExprAtom (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:11331:23)
+      at TypeScriptParserMixin.parseExprAtom (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:4764:20)
+      at TypeScriptParserMixin.parseExprSubscripts (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:11081:23)
+      at TypeScriptParserMixin.parseUpdate (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:11066:21)
+      at TypeScriptParserMixin.parseMaybeUnary (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:11046:23)
+      at TypeScriptParserMixin.parseMaybeUnary (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:9837:18)
+      at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:10899:61)
+      at TypeScriptParserMixin.parseExprOps (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:10904:23)
+      at TypeScriptParserMixin.parseMaybeConditional (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:10881:23)
+      at TypeScriptParserMixin.parseMaybeAssign (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:10831:21)
+      at TypeScriptParserMixin.parseMaybeAssign (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:9786:20)
+      at TypeScriptParserMixin.parseExpressionBase (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:10784:23)
+      at /home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:10780:39
+      at TypeScriptParserMixin.allowInAnd (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:12421:16)
+      at TypeScriptParserMixin.parseExpression (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:10780:17)
+      at TypeScriptParserMixin.parseReturnStatement (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:13142:28)
+      at TypeScriptParserMixin.parseStatementContent (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:12798:21)
+      at TypeScriptParserMixin.parseStatementContent (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:9508:18)
+      at TypeScriptParserMixin.parseStatementLike (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:12767:17)
+      at TypeScriptParserMixin.parseStatementListItem (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:12747:17)
+      at TypeScriptParserMixin.parseBlockOrModuleBlockBody (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:13316:61)
+      at TypeScriptParserMixin.parseBlockBody (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:13309:10)
+      at TypeScriptParserMixin.parseBlock (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:13297:10)
+      at TypeScriptParserMixin.parseFunctionBody (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:12100:24)
+      at TypeScriptParserMixin.parseArrowExpression (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:12075:10)
+      at TypeScriptParserMixin.parseParenAndDistinguishExpression (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:11687:12)
+      at TypeScriptParserMixin.parseExprAtom (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:11331:23)
+      at TypeScriptParserMixin.parseExprAtom (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:4764:20)
+      at TypeScriptParserMixin.parseExprSubscripts (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:11081:23)
+      at TypeScriptParserMixin.parseUpdate (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:11066:21)
+      at TypeScriptParserMixin.parseMaybeUnary (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:11046:23)
+      at TypeScriptParserMixin.parseMaybeUnary (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:9837:18)
+      at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:10899:61)
+      at TypeScriptParserMixin.parseExprOps (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:10904:23)
+      at TypeScriptParserMixin.parseMaybeConditional (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:10881:23)
+      at TypeScriptParserMixin.parseMaybeAssign (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:10831:21)
+      at TypeScriptParserMixin.parseMaybeAssign (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:9786:20)
+      at /home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:10800:39
+      at TypeScriptParserMixin.allowInAnd (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:12421:16)
+      at TypeScriptParserMixin.parseMaybeAssignAllowIn (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:10800:17)
+      at TypeScriptParserMixin.parseVar (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:13384:91)
+      at TypeScriptParserMixin.parseVarStatement (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:13230:10)
+      at TypeScriptParserMixin.parseVarStatement (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:9408:31)
+      at TypeScriptParserMixin.parseStatementContent (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:12851:23)
+      at TypeScriptParserMixin.parseStatementContent (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:9508:18)
+1:50:25 AM [vite] Internal server error: /home/ironbender/Project/teknik-servis-crm/frontend/src/pages/ReportsPage.tsx: Unexpected token, expected "," (398:6)
+
+  396 |       </div>
+  397 |
+> 398 |       {/* Ticket Status Cards */}
+      |       ^
+  399 |       <div className="grid grid-cols-3 gap-4">
+  400 |         <div className="bg-gray-800/50 rounded-2xl border border-gray-700 p-5 flex items-center gap-4">
+  401 |           <div className="w-12 h-12 bg-yellow-500/20 rounded-xl flex items-center justify-center">
+  Plugin: vite:react-babel
+  File: /home/ironbender/Project/teknik-servis-crm/frontend/src/pages/ReportsPage.tsx:398:6
+  396 |        </div>
+  397 |  
+  398 |        {/* Ticket Status Cards */}
+      |        ^
+  399 |        <div className="grid grid-cols-3 gap-4">
+  400 |          <div className="bg-gray-800/50 rounded-2xl border border-gray-700 p-5 flex items-center gap-4">
+      at constructor (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:365:19)
+      at TypeScriptParserMixin.raise (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:6599:19)
+      at TypeScriptParserMixin.unexpected (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:6619:16)
+      at TypeScriptParserMixin.expect (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:6899:12)
+      at TypeScriptParserMixin.parseParenAndDistinguishExpression (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:11661:14)
+      at TypeScriptParserMixin.parseExprAtom (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:11331:23)
+      at TypeScriptParserMixin.parseExprAtom (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:4764:20)
+      at TypeScriptParserMixin.parseExprSubscripts (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:11081:23)
+      at TypeScriptParserMixin.parseUpdate (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:11066:21)
+      at TypeScriptParserMixin.parseMaybeUnary (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:11046:23)
+      at TypeScriptParserMixin.parseMaybeUnary (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:9837:18)
+      at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:10899:61)
+      at TypeScriptParserMixin.parseExprOps (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:10904:23)
+      at TypeScriptParserMixin.parseMaybeConditional (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:10881:23)
+      at TypeScriptParserMixin.parseMaybeAssign (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:10831:21)
+      at TypeScriptParserMixin.parseMaybeAssign (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:9786:20)
+      at TypeScriptParserMixin.parseExpressionBase (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:10784:23)
+      at /home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:10780:39
+      at TypeScriptParserMixin.allowInAnd (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:12421:16)
+      at TypeScriptParserMixin.parseExpression (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:10780:17)
+      at TypeScriptParserMixin.parseReturnStatement (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:13142:28)
+      at TypeScriptParserMixin.parseStatementContent (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:12798:21)
+      at TypeScriptParserMixin.parseStatementContent (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:9508:18)
+      at TypeScriptParserMixin.parseStatementLike (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:12767:17)
+      at TypeScriptParserMixin.parseStatementListItem (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:12747:17)
+      at TypeScriptParserMixin.parseBlockOrModuleBlockBody (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:13316:61)
+      at TypeScriptParserMixin.parseBlockBody (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:13309:10)
+      at TypeScriptParserMixin.parseBlock (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:13297:10)
+      at TypeScriptParserMixin.parseFunctionBody (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:12100:24)
+      at TypeScriptParserMixin.parseArrowExpression (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:12075:10)
+      at TypeScriptParserMixin.parseParenAndDistinguishExpression (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:11687:12)
+      at TypeScriptParserMixin.parseExprAtom (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:11331:23)
+      at TypeScriptParserMixin.parseExprAtom (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:4764:20)
+      at TypeScriptParserMixin.parseExprSubscripts (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:11081:23)
+      at TypeScriptParserMixin.parseUpdate (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:11066:21)
+      at TypeScriptParserMixin.parseMaybeUnary (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:11046:23)
+      at TypeScriptParserMixin.parseMaybeUnary (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:9837:18)
+      at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:10899:61)
+      at TypeScriptParserMixin.parseExprOps (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:10904:23)
+      at TypeScriptParserMixin.parseMaybeConditional (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:10881:23)
+      at TypeScriptParserMixin.parseMaybeAssign (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:10831:21)
+      at TypeScriptParserMixin.parseMaybeAssign (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:9786:20)
+      at /home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:10800:39
+      at TypeScriptParserMixin.allowInAnd (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:12421:16)
+      at TypeScriptParserMixin.parseMaybeAssignAllowIn (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:10800:17)
+      at TypeScriptParserMixin.parseVar (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:13384:91)
+      at TypeScriptParserMixin.parseVarStatement (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:13230:10)
+      at TypeScriptParserMixin.parseVarStatement (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:9408:31)
+      at TypeScriptParserMixin.parseStatementContent (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:12851:23)
+      at TypeScriptParserMixin.parseStatementContent (/home/ironbender/Project/teknik-servis-crm/frontend/node_modules/@babel/parser/lib/index.js:9508:18)
+1:50:41 AM [vite] (client) hmr update /src/index.css, /src/pages/ReportsPage.tsx
+1:51:39 AM [vite] (client) hmr update /src/index.css, /src/pages/CustomersPage.tsx
+1:51:39 AM [vite] (client) hmr update /src/index.css, /src/pages/TicketsPage.tsx
+1:51:39 AM [vite] (client) hmr update /src/index.css, /src/pages/SettingsPage.tsx
+1:51:39 AM [vite] (client) hmr update /src/index.css, /src/contexts/AuthContext.tsx, /src/pages/DashboardPage.tsx, /src/pages/CustomersPage.tsx, /src/pages/TicketsPage.tsx, /src/pages/SettingsPage.tsx, /src/pages/ReportsPage.tsx
+1:51:39 AM [vite] (client) hmr update /src/index.css, /src/pages/ReportsPage.tsx
+1:51:39 AM [vite] (client) hmr update /src/index.css, /src/components/ui/CustomSelect.tsx
+1:51:40 AM [vite] (client) hmr invalidate /src/contexts/AuthContext.tsx Could not Fast Refresh ("useAuth" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+1:51:40 AM [vite] (client) hmr update /src/components/Layout.tsx, /src/App.tsx, /src/pages/LoginPage.tsx
+1:53:22 AM [vite] (client) hmr update /src/index.css, /src/App.tsx
+1:53:22 AM [vite] (client) hmr update /src/components/Layout.tsx, /src/index.css
+1:57:08 AM [vite] http proxy error: /api/reports/summary?period=month
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+1:57:08 AM [vite] http proxy error: /api/reports/daily-trend?period=month
+Error: socket hang up
+    at Socket.socketOnEnd (node:_http_client:599:25)
+    at Socket.emit (node:events:520:35)
+    at endReadableNT (node:internal/streams/readable:1701:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)
+1:57:08 AM [vite] http proxy error: /api/reports/top-customers?period=month
+Error: socket hang up
+    at Socket.socketOnEnd (node:_http_client:599:25)
+    at Socket.emit (node:events:520:35)
+    at endReadableNT (node:internal/streams/readable:1701:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)
+1:57:08 AM [vite] http proxy error: /api/reports/product-types?period=month
+Error: socket hang up
+    at Socket.socketOnEnd (node:_http_client:599:25)
+    at Socket.emit (node:events:520:35)
+    at endReadableNT (node:internal/streams/readable:1701:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)
+1:57:08 AM [vite] http proxy error: /api/reports/monthly
+Error: socket hang up
+    at Socket.socketOnEnd (node:_http_client:599:25)
+    at Socket.emit (node:events:520:35)
+    at endReadableNT (node:internal/streams/readable:1701:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)
+2:01:18 AM [vite] (client) hmr update /src/components/Layout.tsx, /src/index.css
+2:01:18 AM [vite] (client) hmr update /src/index.css, /src/App.tsx
+2:17:51 AM [vite] (client) hmr update /src/index.css
+2:17:51 AM [vite] (client) hmr update /src/index.css, /src/App.tsx
+2:17:59 AM [vite] (client) hmr update /src/index.css, /src/contexts/AuthContext.tsx, /src/pages/DashboardPage.tsx, /src/pages/CustomersPage.tsx, /src/pages/TicketsPage.tsx, /src/pages/SettingsPage.tsx, /src/pages/ReportsPage.tsx, /src/pages/ShelfInventoryPage.tsx
+2:17:59 AM [vite] (client) hmr invalidate /src/contexts/AuthContext.tsx Could not Fast Refresh ("useAuth" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+2:17:59 AM [vite] (client) hmr update /src/components/Layout.tsx, /src/App.tsx, /src/pages/LoginPage.tsx
+2:19:19 AM [vite] (client) hmr update /src/index.css, /src/pages/SettingsPage.tsx
+2:19:31 AM [vite] (client) hmr update /src/index.css, /src/pages/SettingsPage.tsx
+2:19:44 AM [vite] (client) hmr update /src/index.css, /src/pages/SettingsPage.tsx
+2:19:56 AM [vite] (client) hmr update /src/index.css, /src/pages/SettingsPage.tsx
+2:20:19 AM [vite] (client) hmr update /src/index.css, /src/pages/SettingsPage.tsx
+2:20:19 AM [vite] (client) hmr update /src/index.css, /src/App.tsx
+2:20:19 AM [vite] (client) hmr update /src/index.css
+2:20:19 AM [vite] (client) hmr update /src/index.css, /src/contexts/AuthContext.tsx, /src/pages/DashboardPage.tsx, /src/pages/CustomersPage.tsx, /src/pages/TicketsPage.tsx, /src/pages/SettingsPage.tsx, /src/pages/ReportsPage.tsx, /src/pages/ShelfInventoryPage.tsx
+2:20:19 AM [vite] (client) hmr update /src/index.css, /src/components/ui/Toast.tsx
+2:22:06 AM [vite] (client) hmr update /src/index.css, /src/pages/SettingsPage.tsx
+2:22:54 AM [vite] (client) hmr update /src/index.css, /src/pages/TicketsPage.tsx
+2:27:11 AM [vite] (client) hmr update /src/index.css, /src/pages/TicketsPage.tsx
+2:27:11 AM [vite] (client) hmr update /src/index.css, /src/pages/SettingsPage.tsx
+2:32:44 AM [vite] (client) hmr update /src/index.css, /src/contexts/AuthContext.tsx, /src/pages/DashboardPage.tsx, /src/pages/CustomersPage.tsx, /src/pages/TicketsPage.tsx, /src/pages/SettingsPage.tsx, /src/pages/ReportsPage.tsx, /src/pages/ShelfInventoryPage.tsx
+2:32:44 AM [vite] (client) hmr invalidate /src/contexts/AuthContext.tsx Could not Fast Refresh ("useAuth" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+2:32:44 AM [vite] (client) hmr update /src/components/Layout.tsx, /src/App.tsx, /src/pages/LoginPage.tsx
+2:33:10 AM [vite] (client) hmr update /src/index.css, /src/pages/SettingsPage.tsx
+2:33:27 AM [vite] (client) hmr update /src/index.css, /src/pages/TicketsPage.tsx
+2:33:45 AM [vite] (client) hmr update /src/index.css, /src/pages/TicketsPage.tsx
+2:33:54 AM [vite] (client) hmr update /src/index.css, /src/pages/TicketsPage.tsx
+2:34:41 AM [vite] (client) hmr update /src/index.css, /src/pages/TicketsPage.tsx
+2:35:36 AM [vite] (client) hmr update /src/index.css, /src/pages/TicketsPage.tsx
+2:35:36 AM [vite] (client) hmr update /src/index.css, /src/pages/SettingsPage.tsx
+2:35:36 AM [vite] (client) hmr update /src/index.css, /src/contexts/AuthContext.tsx, /src/pages/DashboardPage.tsx, /src/pages/CustomersPage.tsx, /src/pages/TicketsPage.tsx, /src/pages/SettingsPage.tsx, /src/pages/ReportsPage.tsx, /src/pages/ShelfInventoryPage.tsx
+2:35:36 AM [vite] (client) hmr invalidate /src/contexts/AuthContext.tsx Could not Fast Refresh ("useAuth" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+2:35:36 AM [vite] (client) hmr update /src/components/Layout.tsx, /src/App.tsx, /src/pages/LoginPage.tsx

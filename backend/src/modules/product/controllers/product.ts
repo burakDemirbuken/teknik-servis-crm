@@ -58,6 +58,16 @@ export const updateProduct = async (req: Request, res: Response) => {
 
         const validateData = cleanUndefinedFields(updateProductSchema.parse(req.body));
 
+        // If status is changing to COMPLETED, auto-move to virtual shelf
+        if (validateData.status === 'COMPLETED') {
+            const virtualShelf = await prisma.shelf.findFirst({
+                where: { isVirtual: true }
+            });
+            if (virtualShelf) {
+                validateData.shelfId = virtualShelf.id;
+            }
+        }
+
         const updatedProduct = await prisma.product.update({
             where: { id: Number(id) },
             data: validateData
@@ -77,6 +87,22 @@ export const updateProduct = async (req: Request, res: Response) => {
         }
 
         console.error("Error updating product:", error);
+        return res.status(500).json({ message: "Internal server error" });
+    }
+};
+
+export const deleteProduct = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        if (!id) return res.status(400).json({ message: "Product ID is required" });
+
+        await prisma.product.delete({ where: { id: Number(id) } });
+        return res.status(200).json({ message: "Ürün silindi" });
+    } catch (error) {
+        if ((error as any).code === 'P2025') {
+            return res.status(404).json({ message: "Ürün bulunamadı." });
+        }
+        console.error("Error deleting product:", error);
         return res.status(500).json({ message: "Internal server error" });
     }
 };

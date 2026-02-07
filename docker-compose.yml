@@ -29,6 +29,8 @@ services:
       JWT_SECRET: super-secrettokenkey
     volumes:
       - ./backend/src:/usr/src/app/src
+      - whatsapp_session:/usr/src/app/whatsapp-session
 
 volumes:
   postgres_data:
+  whatsapp_session:

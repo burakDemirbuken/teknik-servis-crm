@@ -72,7 +72,7 @@ class WhatsAppService {
 		try
 		{
 			this.client = new Client({
-				authStrategy: new LocalAuth({ dataPath: './whatsapp-auth-data',}),
+				authStrategy: new LocalAuth({ dataPath: './whatsapp-session' }),
 				puppeteer: {
 					headless: true,
 					args: [

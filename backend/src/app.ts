@@ -8,6 +8,7 @@ import authRouter from './modules/auth/routers.js';
 import { authMiddleware } from './middleware/authMiddleware.js';
 import { requestLogger, errorLogger } from './middleware/logger.js';
 import whatsappRouter from './modules/whatsapp/router.js';
+import reportRouter from './modules/report/router.js';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -46,6 +47,7 @@ app.use('/api/tickets', authMiddleware, ticketRouter);
 app.use('/api/settings', authMiddleware, settingsRouter);
 app.use('/api/products', authMiddleware, productRouter);
 app.use('/api/whatsapp', authMiddleware, whatsappRouter);
+app.use('/api/reports', authMiddleware, reportRouter);
 
 
 app.get('/', (req: Request, res: Response) => {
@@ -89,6 +91,14 @@ async function MockDataCreate()
 			],
 			skipDuplicates: true,
 		});
+
+		// Ensure virtual shelf exists for completed products
+		await prisma.shelf.upsert({
+			where: { zone_row: { zone: 'SANAL', row: 0 } },
+			update: { isVirtual: true },
+			create: { zone: 'SANAL', row: 0, isVirtual: true },
+		});
+
 		console.log('Mock data created successfully.');
 	} 
 	catch (error)

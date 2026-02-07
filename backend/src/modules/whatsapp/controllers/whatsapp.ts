@@ -38,6 +38,12 @@ const sendMessageSchema = z.object({
 export const sendMessage = async (req: any, res: any) => {
 	try
 	{
+		// Check WhatsApp connection first
+		const status = whatsapp.getStatus();
+		if (!status.isReady) {
+			return res.status(503).json({ error: 'WhatsApp bağlı değil. Önce Ayarlar sayfasından WhatsApp bağlantısını kurun.' });
+		}
+
 		const validateData = sendMessageSchema.parse(req.body);
 		await whatsapp.sendMessage(validateData.to, validateData.message);
 		res.status(200).json({ message: 'Message sent successfully' });
@@ -49,6 +55,10 @@ export const sendMessage = async (req: any, res: any) => {
 			const errors = error.issues.map((err) => err.message);
 			return res.status(400).json({ errors });
 		}
-		res.status(500).json({ error: (error as Error).message });
+		const msg = (error as Error).message;
+		if (msg.includes('not ready') || msg.includes('not connected')) {
+			return res.status(503).json({ error: 'WhatsApp bağlantısı koptu. Lütfen tekrar bağlanın.' });
+		}
+		res.status(500).json({ error: 'Mesaj gönderilemedi: ' + msg });
 	}
 };
