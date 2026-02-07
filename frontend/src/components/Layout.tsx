@@ -38,8 +38,8 @@ export const Layout = ({ children }: LayoutProps) => {
               <Settings className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h2 className="text-white font-bold text-lg font-sora">TeknikCRM</h2>
-              <p className="text-xs text-gray-500">v1.0</p>
+              <h2 className="text-white font-bold text-lg font-sora">Demir Teknik</h2>
+              <p className="text-xs text-gray-500">Servis</p>
             </div>
           </div>
         </div>
@@ -92,7 +92,7 @@ export const Layout = ({ children }: LayoutProps) => {
             <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center">
               <Settings className="w-4 h-4 text-white" />
             </div>
-            <h2 className="text-white font-bold font-sora">TeknikCRM</h2>
+            <h2 className="text-white font-bold font-sora">Demir Teknik</h2>
           </div>
           <button onClick={handleLogout} className="p-2 text-gray-400 hover:text-white">
             <LogOut className="w-5 h-5" />

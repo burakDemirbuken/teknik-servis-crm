@@ -13,20 +13,24 @@ const ticketStatusConfig: Record<string, { label: string; color: string; icon: a
 export const DashboardPage = () => {
   const navigate = useNavigate();
 
-  const { data: tickets = [], isLoading: ticketsLoading } = useQuery<Ticket[]>({
-    queryKey: ['tickets'],
-    queryFn: async () => (await ticketAPI.getAll()).data,
+  const { data: ticketsResponse, isLoading: ticketsLoading } = useQuery({
+    queryKey: ['dashboard-tickets'],
+    queryFn: () => ticketAPI.getAll(1, 50),
   });
+
+  const tickets = ticketsResponse?.data?.data || [];
 
   const { data: customers = [] } = useQuery<Customer[]>({
     queryKey: ['customers'],
     queryFn: async () => (await customerAPI.getAll()).data,
   });
 
+  const totalTickets = ticketsResponse?.data?.meta?.total || tickets.length;
+
   const stats = {
-    total: tickets.length,
-    open: tickets.filter((t) => t.ticketStatus === 'OPEN').length,
-    closed: tickets.filter((t) => t.ticketStatus === 'CLOSED').length,
+    total: totalTickets,
+    open: tickets.filter((t: any) => t.ticketStatus === 'OPEN').length,
+    closed: tickets.filter((t: any) => t.ticketStatus === 'CLOSED').length,
     customers: customers.length,
   };
 
@@ -117,7 +121,7 @@ export const DashboardPage = () => {
           {tickets.length === 0 ? (
             <p className="text-gray-500 text-center py-8">Henüz servis kaydı bulunmuyor</p>
           ) : (
-            tickets.slice(0, 5).map((ticket) => {
+            tickets.slice(0, 5).map((ticket: any) => {
               const statusCfg = ticketStatusConfig[ticket.ticketStatus] || ticketStatusConfig.OPEN;
               const StatusIcon = statusCfg.icon;
               return (
@@ -135,7 +139,7 @@ export const DashboardPage = () => {
                     </p>
                     <p className="text-gray-400 text-sm truncate">
                       {ticket.products && ticket.products.length > 0
-                        ? `${ticket.products[0].brand || ''} ${ticket.products[0].model}`.trim()
+                        ? `${ticket.products[0].brand || ''} ${ticket.products[0].model || ''}`.trim() || 'Ürün bilgisi yok'
                         : ticket.issue_description || 'Açıklama yok'}
                     </p>
                   </div>

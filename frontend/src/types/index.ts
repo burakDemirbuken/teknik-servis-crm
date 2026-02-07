@@ -62,9 +62,11 @@ export interface Ticket {
   created_at: string;
   updated_at: string;
   created_by: number;
+  updated_by?: number | null;
   customer?: Customer;
   products?: Product[];
   creator?: { id: number; name: string; email: string };
+  updater?: { id: number; name: string; email: string } | null;
 }
 
 export interface WhatsAppStatus {

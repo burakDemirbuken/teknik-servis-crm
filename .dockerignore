@@ -1,0 +1,48 @@
+# Node modules
+node_modules
+**/node_modules
+npm-debug.log
+
+# Backend generated files
+backend/node_modules
+backend/dist
+backend/logs
+backend/*.log
+
+# Frontend
+frontend/node_modules
+frontend/dist
+frontend/.vite
+frontend/build
+
+# Git
+.git
+.gitignore
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test
+coverage
+.nyc_output
+
+# Logs
+logs
+*.log
+
+# Database
+*.db
+*.sqlite
+
+# Environment
+.env
+.env.local
+.env.*.local

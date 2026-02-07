@@ -39,7 +39,7 @@ export const LoginPage = () => {
                 <Settings className="w-8 h-8 text-white" />
               </div>
               <h1 className="text-3xl font-bold text-white mb-2 font-sora">
-                Teknik Servis CRM
+                Demir Teknik Servis
               </h1>
               <p className="text-gray-400">Hoş geldiniz, lütfen giriş yapın</p>
             </div>

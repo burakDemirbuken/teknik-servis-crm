@@ -30,6 +30,7 @@ export const TicketsPage = () => {
   const queryClient = useQueryClient();
   const [filterStatus, setFilterStatus] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
   const [showNewModal, setShowNewModal] = useState(false);
   const [selectedTicket, setSelectedTicket] = useState<Ticket | null>(null);
   const [showWhatsAppModal, setShowWhatsAppModal] = useState(false);
@@ -48,10 +49,13 @@ export const TicketsPage = () => {
   }>({ productTypeId: '', shelfId: '', brand: '', model: '', description: '' });
   const [confirmDialog, setConfirmDialog] = useState<{ title: string; message: string; onConfirm: () => void; color?: string } | null>(null);
 
-  const { data: tickets = [], isLoading } = useQuery<Ticket[]>({
-    queryKey: ['tickets'],
-    queryFn: async () => (await ticketAPI.getAll()).data,
+  const { data: ticketsResponse, isLoading } = useQuery({
+    queryKey: ['tickets', currentPage],
+    queryFn: async () => (await ticketAPI.getAll(currentPage, 50)).data,
   });
+
+  const tickets = ticketsResponse?.data || [];
+  const meta = ticketsResponse?.meta || { total: 0, page: 1, limit: 50, totalPages: 1, hasMore: false };
 
   const { data: shelves = [] } = useQuery<Shelf[]>({
     queryKey: ['shelves'],
@@ -100,10 +104,11 @@ export const TicketsPage = () => {
       setEditingProductId(null);
       toast('Ürün güncellendi', 'success');
       // Refresh selected ticket
-      ticketAPI.getAll().then((res) => {
-        const updated = res.data.find((t: Ticket) => t.id === selectedTicket?.id);
-        if (updated) setSelectedTicket(updated);
-      });
+      if (selectedTicket) {
+        ticketAPI.getById(selectedTicket.id).then((res) => {
+          setSelectedTicket(res.data);
+        });
+      }
     },
     onError: (err: any) => {
       toast(err.response?.data?.message || 'Ürün güncellenemedi.', 'error');
@@ -115,10 +120,11 @@ export const TicketsPage = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tickets'] });
       toast('Ürün silindi', 'success');
-      ticketAPI.getAll().then((res) => {
-        const updated = res.data.find((t: Ticket) => t.id === selectedTicket?.id);
-        if (updated) setSelectedTicket(updated);
-      });
+      if (selectedTicket) {
+        ticketAPI.getById(selectedTicket.id).then((res) => {
+          setSelectedTicket(res.data);
+        });
+      }
     },
     onError: (err: any) => {
       toast(err.response?.data?.message || 'Ürün silinemedi.', 'error');
@@ -133,10 +139,11 @@ export const TicketsPage = () => {
       toast('Ürün eklendi', 'success');
       setShowAddProduct(false);
       setAddProductForm({ productTypeId: '', shelfId: '', brand: '', model: '', description: '' });
-      ticketAPI.getAll().then((res) => {
-        const updated = res.data.find((t: Ticket) => t.id === selectedTicket?.id);
-        if (updated) setSelectedTicket(updated);
-      });
+      if (selectedTicket) {
+        ticketAPI.getById(selectedTicket.id).then((res) => {
+          setSelectedTicket(res.data);
+        });
+      }
     },
     onError: (err: any) => {
       toast(err.response?.data?.errors?.[0] || err.response?.data?.error || 'Ürün eklenemedi.', 'error');
@@ -368,6 +375,10 @@ export const TicketsPage = () => {
                   <p className="text-gray-400 text-sm mb-1">Oluşturan</p>
                   <p className="text-white font-medium">{selectedTicket.creator?.name || '-'}</p>
                 </div>
+                <div>
+                  <p className="text-gray-400 text-sm mb-1">Son Güncelleyen</p>
+                  <p className="text-white font-medium">{selectedTicket.updater?.name || '-'}</p>
+                </div>
               </div>
             </div>
 
@@ -418,7 +429,7 @@ export const TicketsPage = () => {
                       />
                     </div>
                     <div>
-                      <label className="block text-xs text-gray-400 mb-1">Marka *</label>
+                      <label className="block text-xs text-gray-400 mb-1">Marka</label>
                       <input
                         type="text"
                         value={addProductForm.brand}
@@ -428,7 +439,7 @@ export const TicketsPage = () => {
                       />
                     </div>
                     <div>
-                      <label className="block text-xs text-gray-400 mb-1">Model *</label>
+                      <label className="block text-xs text-gray-400 mb-1">Model</label>
                       <input
                         type="text"
                         value={addProductForm.model}
@@ -460,7 +471,7 @@ export const TicketsPage = () => {
                     </button>
                     <button
                       onClick={() => {
-                        if (!addProductForm.productTypeId || !addProductForm.shelfId || !addProductForm.model || !addProductForm.brand) {
+                        if (!addProductForm.productTypeId || !addProductForm.shelfId) {
                           toast('Lütfen zorunlu alanları doldurun', 'error');
                           return;
                         }
@@ -917,6 +928,58 @@ export const TicketsPage = () => {
         </div>
       )}
 
+      {/* Pagination */}
+      {meta.totalPages > 1 && (
+        <div className="flex items-center justify-between bg-gray-800/50 border border-gray-700 rounded-xl p-4">
+          <div className="text-gray-400 text-sm">
+            Sayfa {meta.page} / {meta.totalPages} • Toplam {meta.total} servis
+          </div>
+          <div className="flex gap-2">
+            <button
+              onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+              disabled={meta.page === 1}
+              className="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Önceki
+            </button>
+            <div className="flex gap-1">
+              {Array.from({ length: Math.min(5, meta.totalPages) }, (_, i) => {
+                let pageNum;
+                if (meta.totalPages <= 5) {
+                  pageNum = i + 1;
+                } else if (meta.page <= 3) {
+                  pageNum = i + 1;
+                } else if (meta.page >= meta.totalPages - 2) {
+                  pageNum = meta.totalPages - 4 + i;
+                } else {
+                  pageNum = meta.page - 2 + i;
+                }
+                return (
+                  <button
+                    key={pageNum}
+                    onClick={() => setCurrentPage(pageNum)}
+                    className={`px-3 py-2 rounded-lg transition-all ${
+                      meta.page === pageNum
+                        ? 'bg-blue-500 text-white'
+                        : 'bg-gray-700 hover:bg-gray-600 text-gray-300'
+                    }`}
+                  >
+                    {pageNum}
+                  </button>
+                );
+              })}
+            </div>
+            <button
+              onClick={() => setCurrentPage(p => Math.min(meta.totalPages, p + 1))}
+              disabled={meta.page === meta.totalPages}
+              className="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Sonraki
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* New Ticket Modal */}
       {showNewModal && (
         <NewTicketModal
@@ -976,7 +1039,7 @@ function NewTicketModal({ onClose, onSuccess }: { onClose: () => void; onSuccess
       return;
     }
     for (const p of products) {
-      if (!p.productTypeId || !p.shelfId || !p.model) {
+      if (!p.productTypeId || !p.shelfId) {
         setError('Lütfen tüm ürünlerin zorunlu alanlarını doldurun');
         return;
       }
@@ -1142,10 +1205,9 @@ function NewTicketModal({ onClose, onSuccess }: { onClose: () => void; onSuccess
                       </div>
 
                       <div>
-                        <label className="block text-xs font-medium text-gray-400 mb-1.5">Model *</label>
+                        <label className="block text-xs font-medium text-gray-400 mb-1.5">Model</label>
                         <input
                           type="text"
-                          required
                           value={product.model}
                           onChange={(e) => updateProduct(product.id, 'model', e.target.value)}
                           className="w-full px-3 py-2.5 bg-gray-900 border border-gray-700 rounded-lg text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -1208,7 +1270,7 @@ function WhatsAppModal({
 
   const firstProduct = ticket.products?.[0];
   const deviceName = firstProduct
-    ? `${firstProduct.brand || ''} ${firstProduct.model}`.trim()
+    ? `${firstProduct.brand || ''} ${firstProduct.model || ''}`.trim() || 'cihazınız'
     : 'cihazınız';
 
   const templates: Record<string, string> = {
@@ -1402,7 +1464,7 @@ function BarcodePrintModal({
   const customerName = ticket.customer
     ? `${ticket.customer.name} ${ticket.customer.surname}`
     : '-';
-  const deviceName = `${product.brand || ''} ${product.model}`.trim();
+  const deviceName = `${product.brand || ''} ${product.model || ''}`.trim() || '-';
   const dateStr = new Date(product.receivedDate || ticket.created_at).toLocaleDateString('tr-TR');
   const shelfLabel = product.shelf ? `${product.shelf.zone}-${product.shelf.row}` : '-';
   const productTypeName = product.productType?.type || '-';
@@ -1424,29 +1486,29 @@ function BarcodePrintModal({
           body { font-family: 'Segoe UI', Arial, sans-serif; }
           @media print {
             @page {
-              size: 80mm 50mm;
+              size: 40mm 100mm;
               margin: 2mm;
             }
           }
           .label {
-            width: 76mm;
-            padding: 3mm;
+            width: 36mm;
+            padding: 2mm;
             border: 1px solid #333;
-            border-radius: 3mm;
+            border-radius: 2mm;
           }
           .header {
             text-align: center;
             font-weight: bold;
-            font-size: 11pt;
+            font-size: 9pt;
             border-bottom: 1px solid #ccc;
-            padding-bottom: 2mm;
-            margin-bottom: 2mm;
+            padding-bottom: 1mm;
+            margin-bottom: 1mm;
           }
           .info-row {
             display: flex;
             justify-content: space-between;
-            font-size: 8pt;
-            margin-bottom: 1mm;
+            font-size: 7pt;
+            margin-bottom: 0.5mm;
           }
           .info-label {
             color: #555;
@@ -1457,7 +1519,7 @@ function BarcodePrintModal({
           }
           .barcode-container {
             text-align: center;
-            margin: 2mm 0 1mm;
+            margin: 1mm 0;
           }
           .barcode-container svg {
             max-width: 100%;
@@ -1465,7 +1527,7 @@ function BarcodePrintModal({
           }
           .footer {
             text-align: center;
-            font-size: 7pt;
+            font-size: 6pt;
             color: #888;
             margin-top: 1mm;
             border-top: 1px solid #eee;
@@ -1505,7 +1567,7 @@ function BarcodePrintModal({
           <div className="bg-white rounded-xl p-5 mb-6 shadow-lg">
             <div ref={printRef}>
               <div className="label">
-                <div className="header">TeknikCRM Servis</div>
+                <div className="header">Demir Teknik Servis</div>
                 <div className="info-row">
                   <span className="info-label">Müşteri:</span>
                   <span className="info-value">{customerName}</span>
@@ -1530,10 +1592,10 @@ function BarcodePrintModal({
                   <Barcode
                     value={barcodeValue}
                     format="CODE128"
-                    width={1.5}
-                    height={40}
-                    fontSize={10}
-                    margin={2}
+                    width={1}
+                    height={30}
+                    fontSize={8}
+                    margin={1}
                     displayValue={true}
                   />
                 </div>
@@ -1550,7 +1612,7 @@ function BarcodePrintModal({
             </div>
             <div className="flex justify-between text-sm">
               <span className="text-gray-400">Etiket Boyutu:</span>
-              <span className="text-white">80mm × 50mm</span>
+              <span className="text-white">40mm × 100mm</span>
             </div>
           </div>
 
@@ -1607,15 +1669,15 @@ function BulkBarcodePrintModal({
           body { font-family: 'Segoe UI', Arial, sans-serif; }
           @media print {
             @page {
-              size: 80mm 50mm;
+              size: 40mm 100mm;
               margin: 2mm;
             }
           }
           .label {
-            width: 76mm;
-            padding: 3mm;
+            width: 36mm;
+            padding: 2mm;
             border: 1px solid #333;
-            border-radius: 3mm;
+            border-radius: 2mm;
             page-break-after: always;
           }
           .label:last-child {
@@ -1624,22 +1686,22 @@ function BulkBarcodePrintModal({
           .header {
             text-align: center;
             font-weight: bold;
-            font-size: 11pt;
+            font-size: 9pt;
             border-bottom: 1px solid #ccc;
-            padding-bottom: 2mm;
-            margin-bottom: 2mm;
+            padding-bottom: 1mm;
+            margin-bottom: 1mm;
           }
           .info-row {
             display: flex;
             justify-content: space-between;
-            font-size: 8pt;
-            margin-bottom: 1mm;
+            font-size: 7pt;
+            margin-bottom: 0.5mm;
           }
           .info-label { color: #555; font-weight: 600; }
           .info-value { font-weight: bold; }
           .barcode-container {
             text-align: center;
-            margin: 2mm 0 1mm;
+            margin: 1mm 0;
           }
           .barcode-container svg {
             max-width: 100%;
@@ -1647,7 +1709,7 @@ function BulkBarcodePrintModal({
           }
           .footer {
             text-align: center;
-            font-size: 7pt;
+            font-size: 6pt;
             color: #888;
             margin-top: 1mm;
             border-top: 1px solid #eee;
@@ -1688,13 +1750,13 @@ function BulkBarcodePrintModal({
             <div ref={printRef}>
               {products.map((product) => {
                 const barcodeValue = `SRV-${String(ticket.id).padStart(5, '0')}-${String(product.id).padStart(5, '0')}`;
-                const deviceName = `${product.brand || ''} ${product.model}`.trim();
+                const deviceName = `${product.brand || ''} ${product.model || ''}`.trim() || '-';
                 const dateStr = new Date(product.receivedDate || ticket.created_at).toLocaleDateString('tr-TR');
                 const shelfLabel = product.shelf ? `${product.shelf.zone}-${product.shelf.row}` : '-';
                 const productTypeName = product.productType?.type || '-';
                 return (
                   <div key={product.id} className="label">
-                    <div className="header">TeknikCRM Servis</div>
+                    <div className="header">Demir Teknik Servis</div>
                     <div className="info-row">
                       <span className="info-label">Müşteri:</span>
                       <span className="info-value">{customerName}</span>
@@ -1719,10 +1781,10 @@ function BulkBarcodePrintModal({
                       <Barcode
                         value={barcodeValue}
                         format="CODE128"
-                        width={1.5}
-                        height={40}
-                        fontSize={10}
-                        margin={2}
+                        width={1}
+                        height={30}
+                        fontSize={8}
+                        margin={1}
                         displayValue={true}
                       />
                     </div>
@@ -1741,7 +1803,7 @@ function BulkBarcodePrintModal({
             </div>
             <div className="flex justify-between text-sm">
               <span className="text-gray-400">Etiket Boyutu:</span>
-              <span className="text-white">80mm × 50mm</span>
+              <span className="text-white">40mm × 100mm</span>
             </div>
           </div>
 

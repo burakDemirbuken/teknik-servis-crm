@@ -10,8 +10,8 @@ const ticketSchema = z.object({
 	products: z.array(z.object({
 		productTypeId: z.number().min(1, 'Product Type ID is required'),
 		shelfId: z.number().min(1, 'Shelf ID is required'),
-		model: z.string().min(1, 'Model is required'),
-		brand: z.string().min(1, 'Brand is required'),
+		model: z.string().nullish().transform((val) => val ?? null),
+		brand: z.string().nullish().transform((val) => val ?? null),
 		price: z.number().nullish().transform((val) => val ?? null),
 		status: z.string().nullish().transform((val) => val ?? 'RECEIVED'),
 		description: z.string().nullish().transform((val) => val ?? null),
@@ -45,11 +45,11 @@ export const createTicket = async (req: Request, res: Response) => {
 					create: validateData.products.map((product: any) => ({
 						productTypeId: Number(product.productTypeId),
 						shelfId: Number(product.shelfId),
-						model: String(product.model),
-						brand: String(product.brand),
+						model: product.model,
+						brand: product.brand,
 						price: product.price,
 						status: product.status,
-						description: String(product.description),
+						description: product.description,
 						receivedDate: product.receivedDate,
 						deliveryDate: product.deliveryDate
 					}))
@@ -92,10 +92,26 @@ export const createTicket = async (req: Request, res: Response) => {
 export const getTickets = async (req: Request, res: Response) => {
 	try
 	{
+		// Pagination parametreleri
+		const page = parseInt(req.query.page as string) || 1;
+		const limit = parseInt(req.query.limit as string) || 50;
+		const skip = (page - 1) * limit;
+
+		// Toplam ticket sayısı
+		const total = await prisma.ticket.count();
+
 		const tickets = await prisma.ticket.findMany({
+			skip,
+			take: limit,
 			orderBy: { created_at: 'desc' },
 			include: {
 				customer: true,
+				creator: {
+					select: { id: true, name: true, email: true }
+				},
+				updater: {
+					select: { id: true, name: true, email: true }
+				},
 				products: {
 					include: {
 						productType: true,
@@ -105,12 +121,58 @@ export const getTickets = async (req: Request, res: Response) => {
 			}
 		});
 		
-		res.status(200).json(tickets);
+		res.status(200).json({
+			data: tickets,
+			meta: {
+				total,
+				page,
+				limit,
+				totalPages: Math.ceil(total / limit),
+				hasMore: page * limit < total
+			}
+		});
 	}
 	catch (error)
 	{
 		console.error(error);
 		res.status(500).json({ error: 'Error occurred while fetching tickets.' });
+	}
+};
+
+export const getTicketById = async (req: Request, res: Response) => {
+	try {
+		const { id } = req.params;
+		if (!id) {
+			return res.status(400).json({ error: 'Ticket ID is required' });
+		}
+
+		const ticket = await prisma.ticket.findUnique({
+			where: { id: Number(id) },
+			include: {
+				customer: true,
+				creator: {
+					select: { id: true, name: true, email: true }
+				},
+				updater: {
+					select: { id: true, name: true, email: true }
+				},
+				products: {
+					include: {
+						productType: true,
+						shelf: true,
+					}
+				}
+			}
+		});
+
+		if (!ticket) {
+			return res.status(404).json({ error: 'Ticket not found' });
+		}
+
+		res.status(200).json(ticket);
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({ error: 'Error occurred while fetching ticket.' });
 	}
 };
 
@@ -141,6 +203,12 @@ export const updateTicket = async (req: Request, res: Response) => {
 			data: updateData,
 			include: {
 				customer: true,
+				creator: {
+					select: { id: true, name: true, email: true }
+				},
+				updater: {
+					select: { id: true, name: true, email: true }
+				},
 				products: {
 					include: {
 						productType: true,
@@ -210,8 +278,8 @@ export const reopenTicket = async (req: Request, res: Response) => {
 const addProductSchema = z.object({
 	productTypeId: z.number().min(1, 'Product Type ID is required'),
 	shelfId: z.number().min(1, 'Shelf ID is required'),
-	model: z.string().min(1, 'Model is required'),
-	brand: z.string().min(1, 'Brand is required'),
+	model: z.string().nullish().transform((val) => val ?? null),
+	brand: z.string().nullish().transform((val) => val ?? null),
 	price: z.number().nullish().transform((val) => val ?? null),
 	description: z.string().nullish().transform((val) => val ?? null),
 });

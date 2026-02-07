@@ -64,6 +64,10 @@ model Customer {
   creator User  @relation("CustomerCreator", fields: [created_by], references: [id])
   updater User? @relation("CustomerUpdater", fields: [updated_by], references: [id])
   tickets Ticket[]
+
+  @@index([phone])
+  @@index([name, surname])
+  @@index([created_at])
 }
 
 model Shelf {
@@ -109,6 +113,12 @@ model Ticket {
   closer   User?     @relation("TicketCloser", fields: [closed_by], references: [id])
   customer Customer  @relation(fields: [customerId], references: [id])
   products Product[]
+
+  @@index([customerId])
+  @@index([ticketStatus])
+  @@index([created_at])
+  @@index([ticketStatus, created_at])
+  @@index([closed_at])
 }
 
 model Product {
@@ -116,7 +126,7 @@ model Product {
   productTypeId Int
   shelfId       Int
   ticketId      Int
-  model         String
+  model         String?
   brand         String?
   price         Decimal?
   status        ProductStatus @default(RECEIVED)
@@ -129,4 +139,11 @@ model Product {
   productType ProductType @relation(fields: [productTypeId], references: [id])
   shelf       Shelf       @relation(fields: [shelfId], references: [id])
   ticket      Ticket      @relation(fields: [ticketId], references: [id])
+
+  @@index([ticketId])
+  @@index([shelfId])
+  @@index([productTypeId])
+  @@index([status])
+  @@index([status, shelfId])
+  @@index([receivedDate])
 }

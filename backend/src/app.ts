@@ -1,5 +1,8 @@
 import express, { type Request, type Response } from 'express';
 import cors from 'cors';
+import helmet from 'helmet';
+import compression from 'compression';
+import rateLimit from 'express-rate-limit';
 import customerRouter from './modules/customer/router.js';
 import ticketRouter from './modules/ticket/router.js';
 import settingsRouter from './modules/settings/router.js';
@@ -9,12 +12,62 @@ import { authMiddleware } from './middleware/authMiddleware.js';
 import { requestLogger, errorLogger } from './middleware/logger.js';
 import whatsappRouter from './modules/whatsapp/router.js';
 import reportRouter from './modules/report/router.js';
+import logger from './lib/logger.js';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors());
+// ─── SECURITY ────────────────────────────────
+// Helmet: security headers (XSS, clickjacking, MIME sniffing vs.)
+app.use(helmet({
+  contentSecurityPolicy: false, // API olduğu için CSP gereksiz
+  crossOriginEmbedderPolicy: false,
+}));
 
+// Trust proxy (nginx arkasında çalışırken gerçek IP'yi al)
+app.set('trust proxy', 1);
+
+// ─── RATE LIMITING ───────────────────────────
+// Genel rate limit: 1000 istek / 15 dakika
+const generalLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 1000,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Çok fazla istek gönderildi, lütfen daha sonra tekrar deneyin.' },
+  skip: (req) => req.path === '/health', // Health check hariç
+});
+
+// Auth rate limit: 30 deneme / 15 dakika (brute-force koruması)
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 30,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Çok fazla giriş denemesi, 15 dakika sonra tekrar deneyin.' },
+});
+
+// API genel rate limit: 10000 istek / 1 dakika (development - seed için)
+const apiLimiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: 10000,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'API istek limiti aşıldı, lütfen biraz bekleyin.' },
+});
+
+// ─── CORS ────────────────────────────────────
+const corsOptions = {
+  origin: process.env.NODE_ENV === 'production'
+    ? process.env.FRONTEND_URL || true // production: nginx ile aynı origin veya FRONTEND_URL
+    : ['http://localhost:5173', 'http://localhost:3000'],
+  credentials: true,
+  optionsSuccessStatus: 200
+};
+app.use(cors(corsOptions));
+
+// ─── BODY PARSING & COMPRESSION ──────────────
+app.use(compression());
 app.use(express.json({ 
   limit: '1mb',
   strict: true 
@@ -40,7 +93,8 @@ app.use((err: any, req: Request, res: Response, next: any) => {
 
 app.use(requestLogger);
 
-app.use('/api/auth', authRouter);
+// ─── ROUTES ──────────────────────────────────
+app.use('/api/auth', authLimiter, authRouter);
 
 app.use('/api/customers', authMiddleware, customerRouter);
 app.use('/api/tickets', authMiddleware, ticketRouter);
@@ -51,7 +105,7 @@ app.use('/api/reports', authMiddleware, reportRouter);
 
 
 app.get('/', (req: Request, res: Response) => {
-  res.json({ message: 'Teknik Servis CRM API' });
+  res.json({ message: 'Demir Teknik Servis API' });
 });
 
 
@@ -99,16 +153,35 @@ async function MockDataCreate()
 			create: { zone: 'SANAL', row: 0, isVirtual: true },
 		});
 
-		console.log('Mock data created successfully.');
+		logger.info('Mock data created successfully.');
 	} 
 	catch (error)
 	{
-		console.error('Error creating mock data:', error);	
+		logger.error('Error creating mock data:', error);	
 	}
 }
 
-app.get('/health', (req: Request, res: Response) => {
-  res.json({ status: 'OK' });
+app.get('/health', async (req: Request, res: Response) => {
+  try {
+    // Database connection check
+    await prisma.$queryRaw`SELECT 1`;
+    
+    res.status(200).json({
+      status: 'healthy',
+      timestamp: new Date().toISOString(),
+      uptime: Math.floor(process.uptime()),
+      database: 'connected',
+      environment: process.env.NODE_ENV || 'development'
+    });
+  } catch (error) {
+    logger.error('Health check failed:', { error });
+    res.status(503).json({
+      status: 'unhealthy',
+      timestamp: new Date().toISOString(),
+      database: 'disconnected',
+      error: 'Database connection failed'
+    });
+  }
 });
 
 app.use(errorLogger);
@@ -122,7 +195,7 @@ app.use((req: Request, res: Response) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 Server is running on port ${PORT}`);
+  logger.info(`🚀 Server is running on port ${PORT}`);
 });
 
 MockDataCreate();

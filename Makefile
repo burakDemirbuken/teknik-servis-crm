@@ -2,11 +2,15 @@ COMPOSE_COMMAND = docker compose
 
 COMPOSE_FILE = ./docker-compose.yml
 
+all: start
 
+start: up
+	@(cd frontend && npm run dev > /dev/null 2>&1) &
+	@echo "Frontend started at http://localhost:5173"
 
-
-
-all: up
+stop: down
+	@echo "All containers stopped"
+	@pkill "npm run dev" || echo "Frontend not running"
 
 up:
 	@$(COMPOSE_COMMAND) up --build -d
@@ -14,22 +18,18 @@ up:
 down:
 	@$(COMPOSE_COMMAND) down
 
-clean: down
+clean: stop
 	@$(COMPOSE_COMMAND) down -v --rmi all --remove-orphans
 
 rf: clean all
 
 re: down all
 
-
 list:
 	@$(COMPOSE_COMMAND) ps
 
-
 shell-backend:
 	@$(COMPOSE_COMMAND) exec backend sh
-
-
 
 logs:
 	@$(COMPOSE_COMMAND) logs -f
@@ -48,14 +48,18 @@ studio-logs:
 
 db-reset:
 	@cd backend && npx prisma migrate reset --force --skip-seed
+	@docker compose exec backend npx prisma migrate deploy
 
 db-reset-with-seed:
 	@cd backend && npx prisma migrate reset --force
+	@docker compose exec backend npx prisma migrate deploy
 
 db-fresh:
 	@$(COMPOSE_COMMAND) down -v
 	@$(COMPOSE_COMMAND) up -d db
 
+## start: Start the application (same as up)
+## stop: Stop the application (same as down)
 ## up: Start containers
 ## down: Stop containers
 ## clean: Clean everything (volumes + images)
@@ -80,5 +84,5 @@ help:
 		awk 'BEGIN {FS = ":"}; {printf "  \033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
 
-.PHONY: all down clean re list shell-backend logs log-backend studio studio-stop studio-logs db-reset db-reset-with-seed db-fresh help
+.PHONY: all up down clean re list shell-backend logs log-backend studio studio-stop studio-logs db-reset db-reset-with-seed db-fresh help start stop 
 

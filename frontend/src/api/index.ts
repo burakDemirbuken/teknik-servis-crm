@@ -17,9 +17,13 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
-      window.location.href = '/login';
+      // Login endpoint'inde 401 alınırsa yönlendirme yapma, hatayı döndür
+      const requestUrl = error.config?.url || '';
+      if (!requestUrl.includes('/auth/login')) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        window.location.href = '/login';
+      }
     }
     return Promise.reject(error);
   }
@@ -44,7 +48,8 @@ export const customerAPI = {
 
 // Tickets
 export const ticketAPI = {
-  getAll: () => api.get('/tickets'),
+  getAll: (page = 1, limit = 50) => api.get(`/tickets?page=${page}&limit=${limit}`),
+  getById: (id: number) => api.get(`/tickets/${id}`),
   create: (data: any) => api.post('/tickets', data),
   update: (id: number, data: { issue_description?: string | null; total_price?: number | null; ticketStatus?: string }) =>
     api.patch(`/tickets/${id}`, data),

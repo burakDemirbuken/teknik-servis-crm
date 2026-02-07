@@ -39,7 +39,6 @@ function getDateRange(req: Request): { startDate: Date; endDate: Date } {
         startDate = new Date(now.getFullYear(), now.getMonth(), 1);
     }
   }
-
   return { startDate, endDate };
 }
 
@@ -77,7 +76,6 @@ export const getSummary = async (req: Request, res: Response) => {
     const avgTicketPrice = closedCount > 0 ? totalRevenue / closedCount : 0;
     const completionRate = totalTickets > 0 ? Math.round((closedCount / totalTickets) * 100) : 0;
 
-    // Average repair time (in hours) for closed tickets
     const repairTimes = closedTickets
       .filter((t) => t.closed_at && t.created_at)
       .map((t) => {
